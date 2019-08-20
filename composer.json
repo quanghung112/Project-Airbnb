@@ -12,19 +12,11 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "spatie/laravel-cors": "^1.5"
-=======
-        "tymon/jwt-auth": "dev-develop"
->>>>>>> 7acfda1ff5ae09a74134245494f29fb62c1521fc
-=======
 
         "spatie/laravel-cors": "^1.5"
 
         "tymon/jwt-auth": "dev-develop"
 
->>>>>>> cfbc0563c26de8be5afdeb3c87b46a554d5fa4c9
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
