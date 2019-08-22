@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegisterRequest;
 use App\Services\UserService;
 use Illuminate\Http\Request;
+use mysql_xdevapi\Exception;
 
 class UserController extends Controller
 {
@@ -17,12 +19,23 @@ class UserController extends Controller
     public function findById($id)
     {
         try {
+
+
             $user = $this->userService->findById($id);
             return response()->json($user, 200);
         } catch (\Exception $exception) {
             return null;
         }
     }
+
+
+    public function create(RegisterRequest $request)
+    {
+        $this->userService->create($request->all());
+        $success = "Dữ liệu được xác thực thành công!";
+        return $success;
+    }
+
 
     public function update(Request $request, $id)
     {
@@ -40,4 +53,5 @@ class UserController extends Controller
             "message" => "update success"
         ]);
     }
+
 }
