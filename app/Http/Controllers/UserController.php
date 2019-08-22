@@ -6,7 +6,6 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Services\UserService;
 use Illuminate\Http\Request;
-use mysql_xdevapi\Exception;
 
 class UserController extends Controller
 {
@@ -20,8 +19,6 @@ class UserController extends Controller
     public function findById($id)
     {
         try {
-
-
             $user = $this->userService->findById($id);
             return response()->json($user, 200);
         } catch (\Exception $exception) {
@@ -34,7 +31,7 @@ class UserController extends Controller
     {
         $this->userService->create($request->all());
         $success = "Dữ liệu được xác thực thành công!";
-        return $success;
+        return response()->json($success);
     }
 
     public function update(UpdateUserRequest $request, $id)
@@ -48,7 +45,7 @@ class UserController extends Controller
             ]);
         }
         return response()->json([
-            "status" => "seccuss",
+            "status" => "success",
             "message" => "update success"
         ]);
     }
