@@ -13,13 +13,30 @@ class UserController extends Controller
     {
         $this->userService = $userService;
     }
-
-    public function findById($id){
-        try{
+    public function findById($id)
+    {
+        try {
             $user = $this->userService->findById($id);
             return response()->json($user, 200);
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return null;
         }
+    }
+
+    public function update(Request $request, $id)
+    {
+        try {
+            $this->userService->update($request->all(), $id);
+        } catch (\Exception $e) {
+            return response()->json([
+                "status" => "Error",
+                "message" => $e->getMessage()
+            ]);
+        }
+
+        return response()->json([
+            "status" => "seccuss",
+            "message" => "update success"
+        ]);
     }
 }

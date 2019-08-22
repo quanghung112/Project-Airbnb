@@ -21,6 +21,11 @@ abstract class EloquentRepository implements RepositoryInterface
 
     public function findById($id)
     {
-        return $this->model->find($id);
+        return $this->model->findOrFail($id);
+    }
+    public function update($data, $object)
+    {
+        $object->update($data);
+        return $object;
     }
 }
