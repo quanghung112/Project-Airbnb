@@ -16,7 +16,6 @@ class UserController extends Controller
 
     public function findById($id){
         try{
-
             $user = $this->userService->findById($id);
             return response()->json($user, 200);
         }catch (\Exception $exception){

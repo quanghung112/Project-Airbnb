@@ -16,22 +16,21 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
         if (!($token = JWTAuth::attempt($credentials))) {
             return response()->json([
-                'status' => 'error',
-                'error' => 'invalid.credentials',
-                'msg' => 'Invalid Credentials.'
-            ], Response::HTTP_BAD_REQUEST);
+                'message' => 'Mat khau or email khong dung'
+            ]);
         }
-        return response()->json(['token' => $token], Response::HTTP_OK);
+        $userid = Auth::user()->id;
+        return response()->json(['token' => $token,
+                                  'idUser' => $userid], Response::HTTP_OK);
     }
 
     public function logout(Request $request)
     {
-//        $this->validate($request, ['token' => 'required']);
         try {
             JWTAuth::invalidate($request->input('token'));
-            return response()->json('You have successfully logged out.', Response::HTTP_OK);
+            return response()->json('You have successfully logged out.');
         } catch (JWTException $e) {
-            return response()->json('Failed to logout, please try again.', Response::HTTP_BAD_REQUEST);
+            return response()->json('Failed to logout, please try again.');
         }
     }
 
