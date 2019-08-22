@@ -15,6 +15,7 @@ class UserSeederTable extends Seeder
         $user->username='quanghung';
         $user->password= \Illuminate\Support\Facades\Hash::make(123456);
         $user->email='laiquanghung199x@gmail.com';
+        $user->address='laiquanghung199x@gmail.com';
         $user->save();
     }
 }
