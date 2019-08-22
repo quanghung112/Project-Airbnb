@@ -24,10 +24,19 @@ class UserServiceImpl implements UserService
         return $user;
     }
 
+
     public function create($request)
     {
         $request['password'] = Hash::make($request['password']);
         $this->userRepositoryInterface->create($request);
 
     }
+
+
+    public function update($request, $id)
+    {
+        $oldpost = $this->userRepositoryInterface->findById($id);
+        $this->userRepositoryInterface->update($request, $oldpost);
+    }
 }
+

@@ -20,12 +20,14 @@ class UserController extends Controller
     {
         try {
 
+
             $user = $this->userService->findById($id);
             return response()->json($user, 200);
         } catch (\Exception $exception) {
             return null;
         }
     }
+
 
     public function create(RegisterRequest $request)
     {
@@ -34,5 +36,22 @@ class UserController extends Controller
         return $success;
     }
 
+
+    public function update(Request $request, $id)
+    {
+        try {
+            $this->userService->update($request->all(), $id);
+        } catch (\Exception $e) {
+            return response()->json([
+                "status" => "Error",
+                "message" => $e->getMessage()
+            ]);
+        }
+
+        return response()->json([
+            "status" => "seccuss",
+            "message" => "update success"
+        ]);
+    }
 
 }

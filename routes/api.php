@@ -18,3 +18,5 @@ Route::group(['middleware' => 'jwt.verify'], function () {
     Route::post('/logout', 'AuthController@logout');
 });
 Route::get('/users/{id}', 'UserController@findById')->name('User.findById');
+Route::put('/users/{postId}', 'UserController@update')->name('User.update');
+
