@@ -19,3 +19,4 @@ Route::group(['middleware' => 'jwt.verify'], function () {
 });
 Route::get('/users/{id}', 'UserController@findById')->name('User.findById');
 Route::put('/users/{postId}', 'UserController@update')->name('User.update');
+Route::post('/users/create', 'UserController@create')->name('User.create');

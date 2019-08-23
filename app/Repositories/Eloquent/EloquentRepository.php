@@ -28,4 +28,5 @@ abstract class EloquentRepository implements RepositoryInterface
         $object->update($data);
         return $object;
     }
+
 }

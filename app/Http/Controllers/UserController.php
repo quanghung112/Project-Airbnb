@@ -40,4 +40,5 @@ class UserController extends Controller
             "message" => "update success"
         ]);
     }
+
 }
