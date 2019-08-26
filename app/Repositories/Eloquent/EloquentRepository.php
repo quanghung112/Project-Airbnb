@@ -13,10 +13,12 @@ abstract class EloquentRepository implements RepositoryInterface
     {
         $this->setModel();
     }
+
     abstract function getModel();
+
     public function setModel()
     {
-        $this->model= app()->make($this->getModel());
+        $this->model = app()->make($this->getModel());
     }
 
     public function findById($id)
@@ -27,6 +29,11 @@ abstract class EloquentRepository implements RepositoryInterface
     {
         $object->update($data);
         return $object;
+    }
+
+    public function create($data)
+    {
+        return $this->model->create($data);
     }
 
 }
