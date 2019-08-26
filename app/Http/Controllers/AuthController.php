@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\UserService;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -13,6 +14,13 @@ use Illuminate\Http\Response;
 
 class AuthController extends Controller
 {
+    protected $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
@@ -89,5 +97,14 @@ class AuthController extends Controller
             'provider' => $facebookUser->id,
             'avatar' => $facebookUser->photoUrl
         ]);
+    }
+
+    public function getUser(){
+        try {
+            $user = $this->userService->getUser();
+            return response()->json($user, 200);
+        } catch (\Exception $exception) {
+            return null;
+        }
     }
 }
