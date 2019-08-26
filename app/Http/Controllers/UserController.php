@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Services\UserService;
+use App\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -38,6 +39,15 @@ class UserController extends Controller
     {
         try {
             $this->userService->update($request->all(), $id);
+            $user = new User();
+            $user->avatar = $request->avatar;
+            if ($request->hasFile('avatar')) {
+                $image = $request->file('avatar');
+                $path = $image->store('images', 'public');
+                $user->image = $path;
+            }
+//        php artisan storage:link
+            $user->save();
         } catch (\Exception $e) {
             return response()->json([
                 "status" => "Error",
