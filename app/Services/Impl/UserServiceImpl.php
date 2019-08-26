@@ -33,9 +33,14 @@ class UserServiceImpl implements UserService
     }
 
 
-    public function update($request, $id)
+    public function update($request)
     {
-        $oldpost = $this->userRepositoryInterface->findById($id);
+        $oldpost = $this->getUser();
         $this->userRepositoryInterface->update($request, $oldpost);
+    }
+
+    public function getUser()
+    {
+        return $this->userRepositoryInterface->getUser();
     }
 }
