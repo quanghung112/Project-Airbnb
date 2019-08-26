@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LoginRequest;
-use App\Http\Requests\RegisterRequest;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -39,5 +37,33 @@ class AuthController extends Controller
         } catch (JWTException $e) {
             return response()->json('Failed to logout, please try again.');
         }
+    }
+    public function loginWithFacebook(Request $request)
+    {
+        $authUser = $this->findOrCreateUser($request);
+        $token = JWTAuth::fromUser($authUser);
+        $userid = $authUser->id;
+        return response()->json(['status' => true,
+            'token' => $token,
+            'idUser' => $userid], Response::HTTP_OK);
+    }
+
+    private function findOrCreateUser($facebookUser)
+    {
+        $authUser = User::where('provider_id', $facebookUser->id)->first();
+
+        if ($authUser) {
+            return $authUser;
+        }
+        $password=Hash::make('123456');
+        return User::create([
+            'username' => $facebookUser->name,
+            'name' => $facebookUser->name,
+            'password' => $password,
+            'email' => $facebookUser->email,
+            'provider_id' => $facebookUser->id,
+            'provider' => $facebookUser->id,
+            'avatar' => $facebookUser->photoUrl
+        ]);
     }
 }
