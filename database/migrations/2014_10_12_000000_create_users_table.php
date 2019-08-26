@@ -23,6 +23,8 @@ class CreateUsersTable extends Migration
             $table->string('address')->nullable();
             $table->boolean('gender')->nullable();
             $table->string('phone')->nullable();
+            $table->string('provider')->nullable();
+            $table->string('provider_id')->nullable();
             $table->string('facebook')->nullable()->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();

@@ -12,8 +12,9 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::post('/signup', 'UserController@create');
+Route::post('/loginFacebook','AuthController@loginWithFacebook');
 Route::post('/login', 'AuthController@login');
+Route::post('/signup', 'UserController@create');
 Route::group(['middleware' => 'jwt.verify'], function () {
     Route::post('/logout', 'AuthController@logout');
     Route::post('/changePassword', 'AuthController@changePassword')->name('User.changePassword');
