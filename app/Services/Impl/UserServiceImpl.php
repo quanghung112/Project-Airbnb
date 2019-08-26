@@ -39,4 +39,3 @@ class UserServiceImpl implements UserService
         $this->userRepositoryInterface->update($request, $oldpost);
     }
 }
-

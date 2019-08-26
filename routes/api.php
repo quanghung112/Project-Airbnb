@@ -17,7 +17,10 @@ Route::post('/login', 'AuthController@login');
 Route::post('/signup', 'UserController@create');
 Route::group(['middleware' => 'jwt.verify'], function () {
     Route::post('/logout', 'AuthController@logout');
+    Route::post('/changePassword', 'AuthController@changePassword')->name('User.changePassword');
     Route::get('/users/{id}', 'UserController@findById')->name('User.findById');
     Route::post('/users/{postId}', 'UserController@update')->name('User.update');
+
 });
+Route::post('/users/create', 'UserController@create')->name('User.create');
 
