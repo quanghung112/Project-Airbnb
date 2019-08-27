@@ -12,4 +12,6 @@ interface RepositoryInterface
 
     public function update($data, $object);
 
+    public function delete($obj);
+
 }
