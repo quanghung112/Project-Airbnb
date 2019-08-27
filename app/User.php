@@ -17,7 +17,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'password', 'name','avatar','address','gender','phone','facebook','provider', 'provider_id'
+        'username', 'email', 'password', 'name', 'avatar', 'address', 'gender', 'phone', 'facebook', 'provider', 'provider_id'
     ];
 
     /**
@@ -40,5 +40,10 @@ class User extends Authenticatable implements JWTSubject
             'email' => 'required|email|unique:users',
             'password' => 'required|string|min:6|max:10',
         ];
+    }
+
+    public function houses()
+    {
+
     }
 }

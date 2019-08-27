@@ -36,4 +36,9 @@ abstract class EloquentRepository implements RepositoryInterface
         return $this->model->create($data);
     }
 
+    public function delete($obj)
+    {
+        $this->model->destroy($obj);
+    }
+
 }
