@@ -35,19 +35,10 @@ class UserController extends Controller
         return response()->json($success);
     }
 
-    public function update(UpdateUserRequest $request, $id)
+    public function update(UpdateUserRequest $request)
     {
         try {
-            $this->userService->update($request->all(), $id);
-            $user = new User();
-            $user->avatar = $request->avatar;
-            if ($request->hasFile('avatar')) {
-                $image = $request->file('avatar');
-                $path = $image->store('images', 'public');
-                $user->image = $path;
-            }
-//        php artisan storage:link
-            $user->save();
+            $this->userService->update($request->all());
         } catch (\Exception $e) {
             return response()->json([
                 "status" => "Error",

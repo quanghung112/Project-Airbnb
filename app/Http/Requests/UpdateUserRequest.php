@@ -28,8 +28,8 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:3|regex:/^([a-zA-Z0-9])+$/u',
-            'avatar' => 'nullable|mimes:jpeg,jpg,png,bmp',
+            'name' => 'required',
+            'avatar' => 'nullable',
             'address' => 'required',
             'gender' => 'required',
             'phone' => 'required|regex:/^([0-9]{10})+$/u'
