@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Services\UserService;
+use App\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -34,10 +35,10 @@ class UserController extends Controller
         return response()->json($success);
     }
 
-    public function update(UpdateUserRequest $request, $id)
+    public function update(UpdateUserRequest $request)
     {
         try {
-            $this->userService->update($request->all(), $id);
+            $this->userService->update($request->all());
         } catch (\Exception $e) {
             return response()->json([
                 "status" => "Error",
