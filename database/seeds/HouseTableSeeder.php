@@ -3,7 +3,7 @@
 use App\PostHouse;
 use Illuminate\Database\Seeder;
 
-class PostHouseTableSeeder extends Seeder
+class HouseTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

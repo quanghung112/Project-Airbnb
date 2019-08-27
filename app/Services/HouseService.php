@@ -4,7 +4,7 @@
 namespace App\Services;
 
 
-interface UserService
+interface HouseService
 {
     public function findById($id);
 
@@ -12,6 +12,6 @@ interface UserService
 
     public function update($request);
 
-    public function getUser();
-}
+    public function delete($obj);
 
+}
