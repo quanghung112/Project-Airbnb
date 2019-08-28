@@ -21,10 +21,15 @@ abstract class EloquentRepository implements RepositoryInterface
         $this->model = app()->make($this->getModel());
     }
 
+    public function getAll(){
+        return $this->model->all();
+    }
+
     public function findById($id)
     {
         return $this->model->findOrFail($id);
     }
+
     public function update($data, $object)
     {
         $object->update($data);
@@ -40,5 +45,4 @@ abstract class EloquentRepository implements RepositoryInterface
     {
         $this->model->destroy($obj);
     }
-
 }

@@ -13,10 +13,15 @@ class HouseServiceImpl implements HouseService
     {
         $this->houseRepository = $houseRepository;
     }
+    public function getAll()
+    {
+        $houses = $this->houseRepository->getAll();
+        return $houses;
+    }
 
     public function create($request)
     {
-
+        $this->houseRepository->create($request);
     }
     public function update($request, $id)
     {

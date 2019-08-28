@@ -23,8 +23,8 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton(UserService::class, UserServiceImpl::class);
         $this->app->singleton(UserRepositoryInterface::class, UserRepositoryImpl::class);
-        $this->app->singleton(HouseRepositoryInterface::class, HouseRepositoryImpl::class);
         $this->app->singleton(HouseService::class, HouseServiceImpl::class);
+        $this->app->singleton(HouseRepositoryInterface::class, HouseRepositoryImpl::class);
     }
 
     /**

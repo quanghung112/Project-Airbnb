@@ -22,6 +22,12 @@ Route::group(['middleware' => 'jwt.verify'], function () {
     Route::post('/me/update', 'UserController@update')->name('User.update');
     Route::get('/me', 'AuthController@getUser')->name('User.update');
 });
+Route::group(['prefix'=>'houses'],function(){
+    Route::get('/', 'HouseController@getAll')->name('House.getAll');
+    Route::get('/{id}', 'HouseController@findById')->name('House.findById');
+    Route::post('/create', 'HouseController@create')->name('House.create');
+});
+
 Route::post('/users/create', 'UserController@create')->name('User.create');
 Route::group(['prefix'=>'location'],function (){
     Route::get('cities','Location@getCity');
