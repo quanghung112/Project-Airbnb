@@ -29,7 +29,6 @@ class UserServiceImpl implements UserService
     {
         $request['password'] = Hash::make($request['password']);
         $this->userRepositoryInterface->create($request);
-
     }
 
 

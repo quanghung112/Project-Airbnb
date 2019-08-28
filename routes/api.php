@@ -23,4 +23,9 @@ Route::group(['middleware' => 'jwt.verify'], function () {
     Route::get('/me', 'AuthController@getUser')->name('User.update');
 });
 Route::post('/users/create', 'UserController@create')->name('User.create');
+Route::group(['prefix'=>'location'],function (){
+    Route::get('cities','Location@getCity');
+    Route::get('cities/{matp}','Location@getDistrict');
+    Route::get('districts/{maqh}','Location@getSubDistrict');
+});
 
