@@ -1,6 +1,6 @@
 <?php
 
-use App\PostHouse;
+use App\House;
 use Illuminate\Database\Seeder;
 
 class HouseTableSeeder extends Seeder
@@ -12,7 +12,7 @@ class HouseTableSeeder extends Seeder
      */
     public function run()
     {
-        $house = new PostHouse();
+        $house = new House();
         $house->title = 'Cho thuê phòng chuẩn khách sạn 5*';
         $house->style = 'Phong tro';
         $house->loan_type = 'Tim nguoi o tro';

@@ -18,16 +18,15 @@ class CreateHousesTable extends Migration
             $table->string('title');
             $table->string('style');
             $table->string('loan_type');
-            $table->string('address');
+            $table->string('address')->nullable();
             $table->string('city');
             $table->string('district');
             $table->string('sub_district');
-            $table->integer('bedroom');
-            $table->integer('bathroom');
+            $table->integer('bedroom')->nullable();
+            $table->integer('bathroom')->nullable();
             $table->integer('price');
             $table->string('convenient')->nullable();
-            $table->text('description');
-            $table->bigInteger('user_id');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

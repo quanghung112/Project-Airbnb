@@ -44,6 +44,6 @@ class User extends Authenticatable implements JWTSubject
 
     public function houses()
     {
-
+        return $this->hasMany('App\House');
     }
 }
