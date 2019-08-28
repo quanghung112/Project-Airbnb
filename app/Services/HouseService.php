@@ -12,8 +12,9 @@ interface HouseService
 
     public function create($request);
 
-    public function update($request);
+    public function update($request, $id);
 
     public function delete($obj);
 
 }
+

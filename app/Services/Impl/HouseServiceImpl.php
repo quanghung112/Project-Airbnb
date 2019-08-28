@@ -23,17 +23,17 @@ class HouseServiceImpl implements HouseService
     {
         $this->houseRepository->create($request);
     }
-    public function update($request)
+    public function update($request, $id)
     {
-        // TODO: Implement update() method.
+        $house = $this->findById($id);
+        $this->houseRepository->update($house);
     }
     public function delete($id)
     {
-        // TODO: Implement destroy() method.
+
     }
     public function findById($id)
     {
-        $house = $this->houseRepository->findById($id);
-        return $house;
+        return $this->houseRepository->findById($id);
     }
 }

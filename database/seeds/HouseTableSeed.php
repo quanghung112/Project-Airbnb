@@ -1,5 +1,8 @@
 <?php
 
+
+use App\House;
+
 use Illuminate\Database\Seeder;
 
 class HouseTableSeed extends Seeder
@@ -11,7 +14,8 @@ class HouseTableSeed extends Seeder
      */
     public function run()
     {
-        $house = new \App\House();
+
+        $house = new House();
         $house->title = 'Cho thuê phòng chuẩn khách sạn 5*';
         $house->style = 'Phong tro';
         $house->loan_type = 'Tim nguoi o tro';
