@@ -28,10 +28,13 @@ Route::group(['prefix'=>'houses'],function(){
     Route::post('/create', 'HouseController@create')->name('House.create');
 });
 
-Route::post('/users/create', 'UserController@create')->name('User.create');
+//Route::post('/users/create', 'UserController@create')->name('User.create');
 Route::group(['prefix'=>'location'],function (){
     Route::get('cities','Location@getCity');
     Route::get('cities/{matp}','Location@getDistrict');
     Route::get('districts/{maqh}','Location@getSubDistrict');
+    Route::get('city/{matp}','Location@findCityId');
+    Route::get('district/{maqh}','Location@findDistrictId');
+    Route::get('subdistrict/{xaid}','Location@findSubDistrictId');
 });
 
