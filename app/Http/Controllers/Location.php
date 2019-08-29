@@ -26,4 +26,19 @@ class Location extends Controller
         $subDistricts = SubDistrict::where('maqh', $maqh)->get();
         return response()->json($subDistricts);
     }
+
+    public function findCityId($matp){
+        $city = City::where('matp',$matp)->get();
+        return response()->json($city);
+    }
+
+    public function findDistrictId($maqh){
+        $district = District::where('maqh',$maqh)->get();
+        return response()->json($district);
+    }
+
+    public function findSubDistrictId($xaid){
+        $subdistrict = SubDistrict::where('xaid',$xaid)->get();
+        return response()->json($subdistrict);
+    }
 }
