@@ -16,5 +16,8 @@ interface HouseService
 
     public function delete($obj);
 
+    public function getNewHouse($userId);
+
+    public function getHouseOfUser($userId);
 }
 

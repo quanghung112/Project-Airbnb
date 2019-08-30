@@ -36,4 +36,14 @@ class HouseServiceImpl implements HouseService
     {
         return $this->houseRepository->findById($id);
     }
+
+    public function getNewHouse($userId)
+    {
+       return $this->houseRepository->getNewHouse($userId);
+    }
+
+    public function getHouseOfUser($userId)
+    {
+        return $this->houseRepository->getHouseOfUser($userId);
+    }
 }

@@ -15,7 +15,7 @@ class CreateImagePostsTable extends Migration
     {
         Schema::create('image_posts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('image')->nullable();
+            $table->longText('image')->nullable();
             $table->timestamps();
         });
     }
