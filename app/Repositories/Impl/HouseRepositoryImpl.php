@@ -15,4 +15,16 @@ class HouseRepositoryImpl extends EloquentRepository implements HouseRepositoryI
         $model = House::class;
         return $model;
     }
+
+
+    public function getNewHouse($userId)
+    {
+       return $this->model->where('user_id', $userId)->orderby('id','desc')->take(1)->get();
+    }
+
+    public function getHouseOfUser($userId)
+    {
+       $houses = $this->model->where('user_id', $userId)->orderby('id','desc')->get();
+       return $houses;
+    }
 }
