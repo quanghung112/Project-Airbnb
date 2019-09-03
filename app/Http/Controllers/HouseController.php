@@ -57,7 +57,8 @@ class HouseController extends Controller
         return response()->json(['message' => $message]);
     }
 
-    public function getNewHouse($userId){
+    public function getNewHouse($userId)
+    {
         try {
             $house = $this->houseService->getNewHouse($userId);
             return response()->json($house);
@@ -66,7 +67,8 @@ class HouseController extends Controller
         }
     }
 
-    public function getHouseOfUser($userId){
+    public function getHouseOfUser($userId)
+    {
         try {
             $houses = $this->houseService->getHouseOfUser($userId);
             return response()->json($houses);
@@ -74,4 +76,49 @@ class HouseController extends Controller
             return $exception;
         }
     }
+
+    public function getImageOfHouse($houseId)
+    {
+        try {
+            $images = $this->imageService->getImageOfHouse($houseId);
+            return response()->json($images);
+        } catch (\Exception $exception) {
+            return $exception;
+        }
+    }
+
+    public function deleteImage($imageId)
+    {
+        try {
+            $this->imageService->delete($imageId);
+            $message = "Bạn đã xóa thành công";
+            return response()->json($message);
+        } catch (\Exception $exception) {
+            return $exception;
+        }
+    }
+
+    public function updatePost(Request $request, $houseId)
+    {
+        try {
+            $this->houseService->update($request->all(), $houseId);
+            $message = "Cập nhật thành công ";
+            return response()->json($message);
+        } catch (\Exception $exception) {
+            return $exception;
+        }
+    }
+
+    public function deletePost($houseId)
+    {
+        try {
+            $this->houseService->delete($houseId);
+            $this->imageService->deleteOfPost($houseId);
+            $message = "Bạn đã xóa bài đăng thành công";
+            return response()->json($message);
+        } catch (\Exception $exception) {
+            return $exception;
+        }
+    }
+
 }
