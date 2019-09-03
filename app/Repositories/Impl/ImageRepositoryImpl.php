@@ -17,9 +17,20 @@ class ImageRepositoryImpl extends EloquentRepository implements ImageRepositoryI
         return $model;
     }
 
+
     public function findByHouseId($id)
     {
-        $images =  $this->model->where('house_id', $id)->get();
+        $images = $this->model->where('house_id', $id)->get();
         return $images;
+    }
+    function getImageOfPost($houseId)
+    {
+        return $this->model->where('house_id', $houseId)->get();
+    }
+
+    function deleteOfPost($houseId)
+    {
+        $this->model->where('house_id', $houseId)->delete();
+
     }
 }

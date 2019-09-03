@@ -25,12 +25,13 @@ class HouseServiceImpl implements HouseService
     }
     public function update($request, $id)
     {
-        $oldhouse = $this->findById($id);
-        $this->houseRepository->update($request, $oldhouse);
+        $house = $this->findById($id);
+        $this->houseRepository->update($request,$house);
     }
     public function delete($id)
     {
-
+        $house = $this->findById($id);
+        $this->houseRepository->delete($house);
     }
     public function findById($id)
     {

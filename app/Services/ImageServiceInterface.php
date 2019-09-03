@@ -12,7 +12,12 @@ interface ImageServiceInterface
 
     public function update($request, $id);
 
-    public function delete($obj);
-
     public function findByHouseId($id);
+
+    public function delete($id);
+
+    public function deleteOfPost($houseId);
+
+    public function getImageOfHouse($houseId);
+
 }
