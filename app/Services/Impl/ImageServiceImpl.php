@@ -26,6 +26,10 @@ class ImageServiceImpl implements ImageServiceInterface
         // TODO: Implement findById() method.
     }
 
+    public function findByHouseId($id)
+    {
+        $this->imageRepository->findByHouseId($id);
+    }
     public function create($data)
     {
         $fileName=str_random(15)."-".$data['house_id']."-".Carbon::now()->toDateString()."-".Carbon::now()->hour."-".Carbon::now()->minute."-".Carbon::now()->second.".".$data['image']->getClientOriginalExtension();

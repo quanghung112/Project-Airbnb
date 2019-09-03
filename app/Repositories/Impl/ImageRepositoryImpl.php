@@ -16,4 +16,10 @@ class ImageRepositoryImpl extends EloquentRepository implements ImageRepositoryI
         $model = ImagePost::class;
         return $model;
     }
+
+    public function findByHouseId($id)
+    {
+        $images =  $this->model->where('house_id', $id)->get();
+        return $images;
+    }
 }

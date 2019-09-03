@@ -31,6 +31,7 @@ Route::group(['prefix'=>'houses'],function(){
     Route::get('/{id}', 'HouseController@findById')->name('House.findById');
     Route::post('/create', 'HouseController@create')->name('House.create');
     Route::post('/saveImage', 'HouseController@saveImage');
+    Route::get('/getImageByHouse/{house_id}', 'HouseController@getImageByHouse');
 });
 //Route::post('/saveImage', 'HouseController@saveImage');
 //Route::post('/users/create', 'UserController@create')->name('User.create');
