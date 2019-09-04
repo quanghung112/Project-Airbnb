@@ -11,6 +11,6 @@ class ImagePost extends Model
     ];
     public function houses()
     {
-        return $this->belongsTo('App\House');
+        return $this->belongsTo('App\House', 'house_id', 'id');
     }
 }

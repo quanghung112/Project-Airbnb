@@ -7,6 +7,7 @@ use App\Services\HouseService;
 use App\Services\ImageServiceInterface;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use mysql_xdevapi\Exception;
 
 class HouseController extends Controller
 {
@@ -56,6 +57,16 @@ class HouseController extends Controller
         $message = $this->imageService->create($data);
         return response()->json(['message' => $message]);
     }
+    public function getImageByHouse($id){
+//        try{
+//            $images = $this->imageService->findByHouseId($id);
+//            return response()->json($images);
+//        }catch (\Exception $exception){
+//            return $exception;
+//        }
+        $images = ImagePost::where('house_id', $id)->get();
+        return response()->json($images);
+    }
 
     public function getNewHouse($userId)
     {
@@ -76,6 +87,7 @@ class HouseController extends Controller
             return $exception;
         }
     }
+
 
     public function getImageOfHouse($houseId)
     {
@@ -112,13 +124,12 @@ class HouseController extends Controller
     public function deletePost($houseId)
     {
         try {
-            $this->houseService->delete($houseId);
             $this->imageService->deleteOfPost($houseId);
+            $this->houseService->delete($houseId);
             $message = "Bạn đã xóa bài đăng thành công";
             return response()->json($message);
         } catch (\Exception $exception) {
             return $exception;
         }
     }
-
 }

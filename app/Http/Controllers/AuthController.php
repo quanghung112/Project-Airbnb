@@ -56,6 +56,9 @@ class AuthController extends Controller
         if (strcmp($request->get('current_password'), $request->get('new_password')) == 0) {
             return response()->json("New Password cannot be same as your current password. Please choose a different password.");
         }
+        if ($request->get('new_password') != $request->get('new_password_confirmation')) {
+            return response()->json("Nhập lại mật khẩu mới chưa đúng");
+        }
         $validatedData = $request->validate([
             'current_password' => 'required',
             'new_password' => 'required|string|min:6|confirmed',

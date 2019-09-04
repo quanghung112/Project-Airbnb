@@ -26,7 +26,6 @@ Route::group(['middleware' => 'jwt.verify'], function () {
         Route::get('/getHousesOfUser/{userId}','HouseController@getHouseOfUser');
         Route::post('/create', 'HouseController@create')->name('House.create');
         Route::post('/saveImage', 'HouseController@saveImage');
-        Route::get('/getImageHouse/{houseId}', 'HouseController@getImageOfHouse');
         Route::delete('/deleteImage/{imageId}', 'HouseController@deleteImage');
         Route::post('/updatePost/{houseId}', 'HouseController@updatePost');
         Route::delete('/deletePost/{houseId}', 'HouseController@deletePost');
@@ -35,10 +34,9 @@ Route::group(['middleware' => 'jwt.verify'], function () {
 Route::group(['prefix'=>'houses'],function(){
     Route::get('/', 'HouseController@getAll')->name('House.getAll');
     Route::get('/{id}', 'HouseController@findById')->name('House.findById');
+    Route::get('/getImageHouse/{houseId}', 'HouseController@getImageOfHouse');
 
 });
-//Route::post('/saveImage', 'HouseController@saveImage');
-//Route::post('/users/create', 'UserController@create')->name('User.create');
 Route::group(['prefix'=>'location'],function (){
     Route::get('cities','Location@getCity');
     Route::get('cities/{matp}','Location@getDistrict');
