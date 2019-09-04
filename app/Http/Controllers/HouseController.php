@@ -112,8 +112,8 @@ class HouseController extends Controller
     public function deletePost($houseId)
     {
         try {
-            $this->houseService->delete($houseId);
             $this->imageService->deleteOfPost($houseId);
+            $this->houseService->delete($houseId);
             $message = "Bạn đã xóa bài đăng thành công";
             return response()->json($message);
         } catch (\Exception $exception) {
