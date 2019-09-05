@@ -66,6 +66,15 @@ class ImageServiceImpl implements ImageServiceInterface
 
     public function deleteOfPost($houseId)
     {
+        $images = $this->getImageOfHouse($houseId);
+        if ($images){
+            foreach ($images as $image){
+                $checkexist = public_path('/image/'.$image->image);
+                if ($checkexist) {
+                    File::delete($checkexist);
+                }
+            }
+        }
         $this->imageRepository->deleteOfPost($houseId);
     }
 }

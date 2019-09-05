@@ -132,4 +132,12 @@ class HouseController extends Controller
             return $exception;
         }
     }
+    public function searchHouse(Request $request){
+        try{
+            $houses = $this->houseService->searchHouse($request);
+            return response()->json($houses);
+        }catch (\Exception $exception){
+            return $exception;
+        }
+    }
 }

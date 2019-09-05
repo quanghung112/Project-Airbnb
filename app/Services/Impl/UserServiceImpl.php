@@ -30,6 +30,7 @@ class UserServiceImpl implements UserService
     public function create($request)
     {
         $request['password'] = Hash::make($request['password']);
+        $request['avatar'] = public_path('/avatar/notavatar.jpeg');
         $this->userRepositoryInterface->create($request);
     }
 

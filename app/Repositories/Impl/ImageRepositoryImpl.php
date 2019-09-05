@@ -31,6 +31,5 @@ class ImageRepositoryImpl extends EloquentRepository implements ImageRepositoryI
     function deleteOfPost($houseId)
     {
         $this->model->where('house_id', $houseId)->delete();
-
     }
 }

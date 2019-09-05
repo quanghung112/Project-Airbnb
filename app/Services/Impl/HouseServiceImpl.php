@@ -47,4 +47,7 @@ class HouseServiceImpl implements HouseService
     {
         return $this->houseRepository->getHouseOfUser($userId);
     }
+    public function searchHouse($request){
+        return $this->houseRepository->searchHouse($request);
+    }
 }
