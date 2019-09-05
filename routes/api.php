@@ -35,6 +35,7 @@ Route::group(['prefix'=>'houses'],function(){
     Route::get('/', 'HouseController@getAll')->name('House.getAll');
     Route::get('/{id}', 'HouseController@findById')->name('House.findById');
     Route::get('/getImageHouse/{houseId}', 'HouseController@getImageOfHouse');
+    Route::post('/search', 'HouseController@searchHouse');
 
 });
 Route::group(['prefix'=>'location'],function (){
