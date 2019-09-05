@@ -6,13 +6,17 @@ use App\Repositories\HouseRepositoryInterface;
 use App\Repositories\ImageRepositoryInterface;
 use App\Repositories\Impl\HouseRepositoryImpl;
 use App\Repositories\Impl\ImageRepositoryImpl;
+use App\Repositories\Impl\OrderRepositoryImpl;
 use App\Repositories\Impl\UserRepositoryImpl;
+use App\Repositories\OrderRepositoryInterface;
 use App\Repositories\UserRepositoryInterface;
 use App\Services\HouseService;
 use App\Services\ImageServiceInterface;
 use App\Services\Impl\HouseServiceImpl;
 use App\Services\Impl\ImageServiceImpl;
+use App\Services\Impl\OrderServcieImpl;
 use App\Services\Impl\UserServiceImpl;
+use App\Services\OrderService;
 use App\Services\UserService;
 use Illuminate\Support\ServiceProvider;
 
@@ -31,6 +35,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(HouseRepositoryInterface::class, HouseRepositoryImpl::class);
         $this->app->singleton(ImageRepositoryInterface::class, ImageRepositoryImpl::class);
         $this->app->singleton(ImageServiceInterface::class, ImageServiceImpl::class);
+        $this->app->singleton(OrderRepositoryInterface::class, OrderRepositoryImpl::class);
+        $this->app->singleton(OrderService::class, OrderServcieImpl::class);
     }
 
     /**
