@@ -30,6 +30,9 @@ Route::group(['middleware' => 'jwt.verify'], function () {
         Route::post('/updatePost/{houseId}', 'HouseController@updatePost');
         Route::delete('/deletePost/{houseId}', 'HouseController@deletePost');
     });
+    Route::post('order','UserController@orderHouse');
+    Route::get('getUserOrder/{houseId}', 'OrderController@getUserOrderHouse');
+    Route::get('getHouseOrder/{userId}', 'OrderController@getHouseOrderOfUser');
 });
 Route::group(['prefix'=>'houses'],function(){
     Route::get('/', 'HouseController@getAll')->name('House.getAll');
