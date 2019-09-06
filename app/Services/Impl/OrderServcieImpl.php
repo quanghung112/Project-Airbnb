@@ -24,6 +24,7 @@ class OrderServcieImpl implements OrderService
 
     public function create($data)
     {
+        $data['status'] = "0";
         $this->orderRepository->create($data);
         $message = "Đặt nhà thành công";
         return $message;
@@ -32,28 +33,49 @@ class OrderServcieImpl implements OrderService
 
     public function getUserOrderHouse($houseid)
     {
-        $idUsers = $this->orderRepository->getUserOrderHouse($houseid);
-//        dd($idUsers);
+        $orders = $this->orderRepository->getUserOrderHouse($houseid);
         $usersOrder = [];
-        if ($idUsers) {
-            foreach ($idUsers as $idUser) {
-                $user = $this->userService->findById($idUser->user_id);
+        if ($orders) {
+            foreach ($orders as $order) {
+                $user = $this->userService->findById($order->user_id);
                 array_push($usersOrder, $user);
             }
         }
-        return $usersOrder;
+        return [$usersOrder, $orders];
     }
 
     public function getHouseOrderOfUser($userid)
     {
-        $idHouses = $this->orderRepository->getHouseOrderOfUser($userid);
+        $orders = $this->orderRepository->getHouseOrderOfUser($userid);
         $housesOrder = [];
-        if ($idHouses) {
-            foreach ($idHouses as $idHouse) {
-                $house = $this->houseService->findById($idHouse->house_id);
+        if ($orders) {
+            foreach ($orders as $order) {
+                $house = $this->houseService->findById($order->house_id);
                 array_push($housesOrder, $house);
             }
         }
-        return $housesOrder;
+        return [$housesOrder, $orders];
+    }
+
+    public function update($data, $idOrder)
+    {
+        $order = $this->findById($idOrder);
+        $result = $this->getUserOrderHouse($order->house_id);
+        foreach ($result[0] as $orderUser) {
+            if ($orderUser->status === '2') {
+                if ($data['status'] === '2') {
+                    $message = "Đã chấp nhận người thuê không thể chấp nhận cho người khác";
+                    return $message;
+                }
+            }
+        }
+        $this->orderRepository->update($data, $order);
+        $message = "Thành công";
+        return $message;
+    }
+
+    public function findById($idOrder)
+    {
+        return $this->orderRepository->findById($idOrder);
     }
 }
