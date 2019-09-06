@@ -12,4 +12,8 @@ interface OrderService
 
     public function getHouseOrderOfUser($userid);
 
+    public function update($data, $idOrder);
+
+    public function findById($idOrder);
+
 }
