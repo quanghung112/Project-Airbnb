@@ -8,7 +8,8 @@ class House extends Model
 {
 
     protected $fillable = [
-        'title', 'style', 'loan_type', 'address', 'city', 'district', 'sub_district', 'bedroom', 'bathroom', 'price', 'convenient', 'description', 'user_id'
+        'title', 'style', 'loan_type', 'address', 'city', 'district', 'sub_district',
+        'bedroom', 'bathroom', 'price', 'convenient', 'description', 'user_id', 'status', 'start_loan', 'end_loan', 'revenue'
     ];
 
     public function image(){
