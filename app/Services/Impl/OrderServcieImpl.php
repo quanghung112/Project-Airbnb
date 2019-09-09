@@ -26,11 +26,24 @@ class OrderServcieImpl implements OrderService
     public function create($data)
     {
         $data['status'] = "1";
-        $this->orderRepository->create($data);
-        $message = "Đặt nhà thành công";
-        return $message;
+        $allOrder = $this->orderRepository->getAll();
+        foreach ($allOrder as $order) {
+            if ($order->user_id == $data['user_id'] && $order->house_id == $data['house_id']) {
+                if ($order->status != '0') {
+                    $this->orderRepository->create($data);
+                    $message = "Đặt nhà thành công";
+                    $status = true;
+                    $result = [$message,$status];
+                    return $result;
+                } else {
+                    $message = "Đã đặt phòng thành công không thể đặt lại";
+                    $status = false;
+                    $result = [$message,$status];
+                    return $result;
+                }
+            }
+        }
     }
-
 
     public function getUserOrderHouse($houseid)
     {
@@ -39,7 +52,21 @@ class OrderServcieImpl implements OrderService
         if ($orders) {
             foreach ($orders as $order) {
                 $user = $this->userService->findById($order->user_id);
-                array_push($usersOrder, $user);
+                if ($usersOrder != []) {
+                    foreach ($usersOrder as $userOrder) {
+                        $check = true;
+                        if ($userOrder->id === $user->id) {
+                            $check = false;
+                            break;
+                        }
+                    }
+                    if ($check) {
+                        array_push($usersOrder, $user);
+                    }
+                } else {
+                    array_push($usersOrder, $user);
+                }
+
             }
         }
         return [$usersOrder, $orders];
@@ -52,7 +79,20 @@ class OrderServcieImpl implements OrderService
         if ($orders) {
             foreach ($orders as $order) {
                 $house = $this->houseService->findById($order->house_id);
-                array_push($housesOrder, $house);
+                if ($housesOrder != []) {
+                    foreach ($housesOrder as $houseOrder) {
+                        $check = true;
+                        if ($houseOrder->id === $house->id) {
+                            $check = false;
+                            break;
+                        }
+                    }
+                    if ($check) {
+                        array_push($housesOrder, $house);
+                    }
+                } else {
+                    array_push($housesOrder, $house);
+                }
             }
         }
         return [$housesOrder, $orders];

@@ -29,7 +29,7 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'name' => 'required',
-//            'avatar' => 'nullable',
+            'avatar' => 'nullable',
             'address' => 'required',
 //            'gender' => 'required',
             'phone' => 'required|regex:/^([0-9]{10})+$/u'
