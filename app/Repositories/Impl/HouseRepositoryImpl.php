@@ -48,27 +48,27 @@ class HouseRepositoryImpl extends EloquentRepository implements HouseRepositoryI
         $from = date($start_loan);
 
         $to = date($end_loan);
-        if($price ==0){
+        if ($price == 0) {
             $inprice = 0;
             $outprice = 999999999999;
         }
-        if($price ==1000000){
+        if ($price == 1000000) {
             $inprice = 1000000;
             $outprice = 1999999;
         }
-        if($price ==2000000){
+        if ($price == 2000000) {
             $inprice = 2000000;
             $outprice = 2999999;
         }
-        if($price ==3000000){
+        if ($price == 3000000) {
             $inprice = 3000000;
             $outprice = 3999999;
         }
-        if($price ==4000000){
+        if ($price == 4000000) {
             $inprice = 4000000;
             $outprice = 4999999;
         }
-        if($price ==5000000){
+        if ($price == 5000000) {
             $inprice = 5000000;
             $outprice = 999999999999;
         }
@@ -87,4 +87,5 @@ class HouseRepositoryImpl extends EloquentRepository implements HouseRepositoryI
 
         return $houses;
     }
+
 }

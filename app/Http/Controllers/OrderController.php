@@ -24,12 +24,23 @@ class OrderController extends Controller
         }
     }
 
-    public function getHouseOrderOfUser($userId){
+    public function getHouseOrderOfUser($userId)
+    {
         try {
             $houses = $this->orderService->getHouseOrderOfUser($userId);
             return response()->json($houses);
         } catch (\Exception $exception) {
             return $exception;
         }
+    }
+
+    public function updateOrder(Request $request, $idOrder)
+    {
+        try {
+          $message =  $this->orderService->update($request->all(), $idOrder);
+        return response()->json($message);
+    } catch (\Exception $exception) {
+        return $exception;
+    }
     }
 }
