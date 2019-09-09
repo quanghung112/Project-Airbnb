@@ -41,11 +41,18 @@ class HouseRepositoryImpl extends EloquentRepository implements HouseRepositoryI
             $start_loan = Carbon::now()->format('Y-m-d');
         };
 
-        $end_loan = $request->end_loan;
-        if($end_loan==""){
-            $end_loan = "2999-01-01";
-        };
-        $from = date($start_loan);
+        if ($price == 0) {
+            $start_loan = $request->start_loan;
+            if ($start_loan == "") {
+                $start_loan = Carbon::now()->format('Y-m-d');
+            };
+
+
+            $end_loan = $request->end_loan;
+            if ($end_loan == "") {
+                $end_loan = "2999-01-01";
+            };
+            $from = date($start_loan);
 
         $to = date($end_loan);
         if ($price == 0) {
@@ -84,8 +91,42 @@ class HouseRepositoryImpl extends EloquentRepository implements HouseRepositoryI
             ->whereBetween('start_loan', [$from, $to])
             ->whereBetween('end_loan', [$from, $to])
             ->orderby('id', 'desc')->get();
+            $to = date($end_loan);
+            if ($price == 0) {
+                $inprice = 0;
+                $outprice = 999999999999;
+            }
+            if ($price == 1000000) {
+                $inprice = 1000000;
+                $outprice = 1999999;
+            }
+            if ($price == 2000000) {
+                $inprice = 2000000;
+                $outprice = 2999999;
+            }
+            if ($price == 3000000) {
+                $inprice = 3000000;
+                $outprice = 3999999;
+            }
+            if ($price == 4000000) {
+                $inprice = 4000000;
+                $outprice = 4999999;
+            }
+            if ($price == 5000000) {
+                $inprice = 5000000;
+                $outprice = 999999999999;
+            }
 
-        return $houses;
+            $houses = $this->model->where('city', 'like', '%' . $city . '%')
+                ->where('style', 'like', '%' . $style . '%')
+                ->whereBetween('price', [$inprice, $outprice])
+                ->where('bedroom', 'like', '%' . $bedroom . '%')
+                ->where('bathroom', 'like', '%' . $bathroom . '%')
+                ->whereBetween('start_loan', [$from, $to])
+                ->whereBetween('end_loan', [$from, $to])
+                ->orderby('id', 'desc')->get();
+
+            return $houses;
+        }
     }
-
 }

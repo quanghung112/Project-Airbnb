@@ -140,4 +140,12 @@ class HouseController extends Controller
             return $exception;
         }
     }
+
+    public function updateRevenue($houseId){
+        $this->houseService->updateRevenue($houseId);
+    }
+
+    public function updateCancelRevenue($houseId){
+        $this->houseService->updateCancelRevenue($houseId);
+    }
 }

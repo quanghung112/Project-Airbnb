@@ -21,5 +21,10 @@ interface HouseService
     public function getHouseOfUser($userId);
 
     public function searchHouse($request);
+
+    public function updateRevenue($idhouse);
+
+    public function updateCancelRevenue($idhouse);
+
 }
 

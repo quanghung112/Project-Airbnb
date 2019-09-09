@@ -29,6 +29,9 @@ Route::group(['middleware' => 'jwt.verify'], function () {
         Route::delete('/deleteImage/{imageId}', 'HouseController@deleteImage');
         Route::post('/updatePost/{houseId}', 'HouseController@updatePost');
         Route::delete('/deletePost/{houseId}', 'HouseController@deletePost');
+        Route::get('/revenue/{houseId}', 'HouseController@updateRevenue');
+        Route::get('/revenue-cancel/{houseId}', 'HouseController@updateCancelRevenue');
+
     });
     Route::post('order','UserController@orderHouse');
     Route::get('getUserOrder/{houseId}', 'OrderController@getUserOrderHouse');
@@ -50,4 +53,3 @@ Route::group(['prefix'=>'location'],function (){
     Route::get('district/{maqh}','Location@findDistrictId');
     Route::get('subdistrict/{xaid}','Location@findSubDistrictId');
 });
-

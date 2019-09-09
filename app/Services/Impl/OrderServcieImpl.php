@@ -8,6 +8,7 @@ use App\Repositories\OrderRepositoryInterface;
 use App\Services\HouseService;
 use App\Services\OrderService;
 use App\Services\UserService;
+use Carbon\Carbon;
 
 class OrderServcieImpl implements OrderService
 {
@@ -60,14 +61,37 @@ class OrderServcieImpl implements OrderService
     public function update($data, $idOrder)
     {
         $order = $this->findById($idOrder);
-        $result = $this->getUserOrderHouse($order->house_id);
-        foreach ($result[0] as $orderUser) {
+        $usersOrder = $this->getUserOrderHouse($order->house_id);
+        foreach ($usersOrder[0] as $orderUser) {
             if ($orderUser->status === '2') {
                 if ($data['status'] === '2') {
                     $message = "Đã chấp nhận người thuê không thể chấp nhận cho người khác";
                     return $message;
                 }
             }
+        }
+        $houseOrder = $order->house;
+        $now = Carbon::now();
+        $checkDay = Carbon::create(2000, 1, 1, 00, 00, 00);
+        $startLoan = Carbon::parse($houseOrder->start_loan);
+        $checkNow = $now->diffInHours($checkDay);
+        $checkStartLoan = $startLoan->diffInHours($checkDay);
+        $check = $checkStartLoan - $checkNow;
+        if ($check > 0 and $check < 24) {
+            if ($data['userId']) {
+                if ($order->status === '2') {
+                    $message = "Bạn không thể  huỷ thuê nhà trong vòng 1 ngày trước thời gian thuê ";
+                    return $message;
+                }
+            } else {
+                $this->orderRepository->update($data, $order);
+                $message = "Thành công";
+                return $message;
+            }
+        }
+        if ($check < 0) {
+            $message = "Không thể thay đổi trạng thái thuê nhà do đã quá ngày nhận phòng";
+            return $message;
         }
         $this->orderRepository->update($data, $order);
         $message = "Thành công";
