@@ -6,7 +6,7 @@ namespace App\Repositories;
 
 interface HouseRepositoryInterface extends RepositoryInterface
 {
-    public function getNewHouse($userId);
+//    public function getNewHouse($userId);
 
     public function getHouseOfUser($userId);
 
@@ -14,6 +14,8 @@ interface HouseRepositoryInterface extends RepositoryInterface
 
     public function getCommentOfHouse($obj);
 
-//    public function getUsersComment($houseId);
+    public function getImages($house);
+
+    public function getOrders($house);
 
 }

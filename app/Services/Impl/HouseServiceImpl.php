@@ -3,7 +3,10 @@
 
 namespace App\Services\Impl;
 
+use App\Repositories\CommentRepositoryInterface;
 use App\Repositories\HouseRepositoryInterface;
+use App\Repositories\ImageRepositoryInterface;
+use App\Repositories\OrderRepositoryInterface;
 use App\Services\HouseService;
 use App\Services\UserService;
 use Carbon\Carbon;
@@ -11,7 +14,13 @@ use Carbon\Carbon;
 class HouseServiceImpl implements HouseService
 {
     private $houseRepository;
-    public function __construct(HouseRepositoryInterface $houseRepository, UserService $userService)
+    private $commentRepository;
+    private $orderRepository;
+    private $imageRepository;
+    public function __construct(HouseRepositoryInterface $houseRepository,
+                                CommentRepositoryInterface $commentRepository,
+                                OrderRepositoryInterface $orderRepository,
+                                ImageRepositoryInterface $imageRepository)
     {
         $this->houseRepository = $houseRepository;
     }
@@ -40,10 +49,16 @@ class HouseServiceImpl implements HouseService
         return $this->houseRepository->findById($id);
     }
 
-    public function getNewHouse($userId)
+    public function getImages($houseId)
     {
-       return $this->houseRepository->getNewHouse($userId);
+       $house = $this->findById($houseId);
+       return $this->houseRepository->getImages($house);
     }
+
+//    public function getNewHouse($userId)
+//    {
+//       return $this->houseRepository->getNewHouse($userId);
+//    }
 
     public function getHouseOfUser($userId)
     {
@@ -99,5 +114,11 @@ class HouseServiceImpl implements HouseService
             }
         }
         return $usersComment;
+    }
+
+    public function getOrders($houseId)
+    {
+        $house = $this->findById($houseId);
+        return $this->getOrders($house);
     }
 }

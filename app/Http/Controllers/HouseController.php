@@ -59,18 +59,6 @@ class HouseController extends Controller
         return response()->json(['message' => $message]);
     }
 
-    public function getImageByHouse($id)
-    {
-//        try{
-//            $images = $this->imageService->findByHouseId($id);
-//            return response()->json($images);
-//        }catch (\Exception $exception){
-//            return $exception;
-//        }
-        $images = ImagePost::where('house_id', $id)->get();
-        return response()->json($images);
-    }
-
     public function getNewHouse($userId)
     {
         try {
@@ -92,15 +80,15 @@ class HouseController extends Controller
     }
 
 
-    public function getImageOfHouse($houseId)
-    {
-        try {
-            $images = $this->imageService->getImageOfHouse($houseId);
-            return response()->json($images);
-        } catch (\Exception $exception) {
-            return $exception;
-        }
-    }
+//    public function getImageOfHouse($houseId)
+//    {
+//        try {
+//            $images = $this->imageService->getImageOfHouse($houseId);
+//            return response()->json($images);
+//        } catch (\Exception $exception) {
+//            return $exception;
+//        }
+//    }
 
     public function deleteImage($imageId)
     {
@@ -171,6 +159,16 @@ class HouseController extends Controller
         try {
             $users = $this->houseService->getUsersComment($houseId);
             return response()->json($users);
+        } catch (\Exception $exception) {
+            return $exception;
+        }
+    }
+
+    public function getImages($houseId)
+    {
+        try {
+            $images = $this->houseService->getImages($houseId);
+            return response()->json($images);
         } catch (\Exception $exception) {
             return $exception;
         }

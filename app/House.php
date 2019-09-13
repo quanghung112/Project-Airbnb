@@ -12,7 +12,7 @@ class House extends Model
         'bedroom', 'bathroom', 'price', 'convenient', 'description', 'user_id', 'status', 'start_loan', 'end_loan', 'revenue'
     ];
 
-    public function image()
+    public function images()
     {
         return $this->hasMany('App\ImagePost');
     }
@@ -24,7 +24,7 @@ class House extends Model
 
     public function orders()
     {
-        return $this->hasMany('App/Order');
+        return $this->hasMany('App\Order');
     }
 
     public function comments()
