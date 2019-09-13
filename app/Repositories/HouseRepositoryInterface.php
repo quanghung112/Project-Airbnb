@@ -12,4 +12,8 @@ interface HouseRepositoryInterface extends RepositoryInterface
 
     public function searchHouse($request);
 
+    public function getCommentOfHouse($obj);
+
+//    public function getUsersComment($houseId);
+
 }

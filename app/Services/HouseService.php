@@ -14,7 +14,7 @@ interface HouseService
 
     public function update($request, $id);
 
-    public function delete($obj);
+    public function delete($id);
 
     public function getNewHouse($userId);
 
@@ -25,6 +25,10 @@ interface HouseService
     public function updateRevenue($idhouse);
 
     public function updateCancelRevenue($idhouse);
+
+    public function getCommentOfHouse($houseId);
+
+    public function getUsersComment($houseId);
 
 }
 

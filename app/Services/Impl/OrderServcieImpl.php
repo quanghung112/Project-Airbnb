@@ -25,23 +25,39 @@ class OrderServcieImpl implements OrderService
 
     public function create($data)
     {
-        $data['status'] = "1";
+//        $data['status'] = '1';
         $allOrder = $this->orderRepository->getAll();
-        foreach ($allOrder as $order) {
-            if ($order->user_id == $data['user_id'] && $order->house_id == $data['house_id']) {
-                if ($order->status != '0') {
+        if (count($allOrder) != 0) {
+            foreach ($allOrder as $order) {
+                if ($order->user_id == $data['user_id'] && $order->house_id == $data['house_id']) {
+                    $now = Carbon::now();
+                    $checkDay = Carbon::create(2000, 1, 1, 00, 00, 00);
+                    $endLoan = Carbon::parse($order->check_out);
+                    $checkNow = $now->diffInHours($checkDay);
+                    $checkEndLoan = $endLoan->diffInHours($checkDay);
+                    $check = $checkEndLoan - $checkNow;
+                    if ($check > 0) {
+                        if ($order->status === '2' || $order->status === '1') {
+                            $message = "Đã đặt phòng thành công không thể đặt lại";
+                            $status = false;
+                            $result = [$message, $status];
+                            return $result;
+                        }
+                    }
+                } else {
                     $this->orderRepository->create($data);
                     $message = "Đặt nhà thành công";
                     $status = true;
-                    $result = [$message,$status];
-                    return $result;
-                } else {
-                    $message = "Đã đặt phòng thành công không thể đặt lại";
-                    $status = false;
-                    $result = [$message,$status];
+                    $result = [$message, $status];
                     return $result;
                 }
             }
+        } else {
+            $this->orderRepository->create($data);
+            $message = "Đặt nhà thành công";
+            $status = true;
+            $result = [$message, $status];
+            return $result;
         }
     }
 
@@ -113,7 +129,7 @@ class OrderServcieImpl implements OrderService
         $houseOrder = $order->house;
         $now = Carbon::now();
         $checkDay = Carbon::create(2000, 1, 1, 00, 00, 00);
-        $startLoan = Carbon::parse($houseOrder->start_loan);
+        $startLoan = Carbon::parse($order->check_in);
         $checkNow = $now->diffInHours($checkDay);
         $checkStartLoan = $startLoan->diffInHours($checkDay);
         $check = $checkStartLoan - $checkNow;

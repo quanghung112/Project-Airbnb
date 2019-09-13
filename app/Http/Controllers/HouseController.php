@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostRequest;
 use App\ImagePost;
 use App\Services\HouseService;
 use App\Services\ImageServiceInterface;
@@ -40,7 +41,7 @@ class HouseController extends Controller
         }
     }
 
-    public function create(Request $request)
+    public function create(PostRequest $request)
     {
         try {
             $this->houseService->create($request->all());
@@ -57,7 +58,9 @@ class HouseController extends Controller
         $message = $this->imageService->create($data);
         return response()->json(['message' => $message]);
     }
-    public function getImageByHouse($id){
+
+    public function getImageByHouse($id)
+    {
 //        try{
 //            $images = $this->imageService->findByHouseId($id);
 //            return response()->json($images);
@@ -110,7 +113,7 @@ class HouseController extends Controller
         }
     }
 
-    public function updatePost(Request $request, $houseId)
+    public function updatePost(PostRequest $request, $houseId)
     {
         try {
             $this->houseService->update($request->all(), $houseId);
@@ -132,20 +135,44 @@ class HouseController extends Controller
             return $exception;
         }
     }
-    public function searchHouse(Request $request){
-        try{
+
+    public function searchHouse(Request $request)
+    {
+        try {
             $houses = $this->houseService->searchHouse($request);
             return response()->json($houses);
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return $exception;
         }
     }
 
-    public function updateRevenue($houseId){
+    public function updateRevenue($houseId)
+    {
         $this->houseService->updateRevenue($houseId);
     }
 
-    public function updateCancelRevenue($houseId){
+    public function updateCancelRevenue($houseId)
+    {
         $this->houseService->updateCancelRevenue($houseId);
+    }
+
+    public function getComment($houseId)
+    {
+        try {
+            $comments = $this->houseService->getCommentOfHouse($houseId);
+            return response()->json($comments);
+        } catch (\Exception $exception) {
+            return $exception;
+        }
+    }
+
+    public function getUsersComment($houseId)
+    {
+        try {
+            $users = $this->houseService->getUsersComment($houseId);
+            return response()->json($users);
+        } catch (\Exception $exception) {
+            return $exception;
+        }
     }
 }

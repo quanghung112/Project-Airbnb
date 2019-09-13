@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model
+class Comment extends Model
 {
     protected $fillable = [
-        'user_id','house_id','status','check_in','check_out'
+        'user_id','house_id','comment','time_comment'
     ];
     public function user(){
         return $this->belongsTo('App\User');

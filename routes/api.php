@@ -31,7 +31,12 @@ Route::group(['middleware' => 'jwt.verify'], function () {
         Route::delete('/deletePost/{houseId}', 'HouseController@deletePost');
         Route::get('/revenue/{houseId}', 'HouseController@updateRevenue');
         Route::get('/revenue-cancel/{houseId}', 'HouseController@updateCancelRevenue');
+        Route::post('{houseId}/create_comment', 'CommentController@store');
 
+    });
+    Route::group(['prefix'=>'comments'], function (){
+        Route::post('{idComment}/update_comment', 'CommentController@update');
+        Route::delete('{idComment}/delete_comment', 'CommentController@delete');
     });
     Route::post('order','UserController@orderHouse');
     Route::get('getUserOrder/{houseId}', 'OrderController@getUserOrderHouse');
@@ -43,8 +48,12 @@ Route::group(['prefix'=>'houses'],function(){
     Route::get('/{id}', 'HouseController@findById')->name('House.findById');
     Route::get('/getImageHouse/{houseId}', 'HouseController@getImageOfHouse');
     Route::post('/search', 'HouseController@searchHouse');
-
 });
+
+Route::get('houses/{houseId}/comments', 'HouseController@getComment');
+Route::get('comments/{idComment}/get_user_comment', 'CommentController@getUserComment');
+Route::post('comments/{idComment}/update_time_comment', 'CommentController@updateTimeComment');
+//Route::get('houses/{idHouse}/get_user_comment', 'HouseController@getUsersComment');
 Route::group(['prefix'=>'location'],function (){
     Route::get('cities','Location@getCity');
     Route::get('cities/{matp}','Location@getDistrict');
