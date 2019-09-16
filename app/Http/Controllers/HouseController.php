@@ -173,4 +173,14 @@ class HouseController extends Controller
             return $exception;
         }
     }
+
+    public function getUser($houseId)
+    {
+        try {
+            $user = $this->houseService->getUser($houseId);
+            return response()->json($user);
+        } catch (\Exception $exception) {
+            return $exception;
+        }
+    }
 }

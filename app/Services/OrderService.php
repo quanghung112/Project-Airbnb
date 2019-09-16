@@ -16,6 +16,5 @@ interface OrderService
 
     public function findById($idOrder);
 
-
-
+    public function getUser($idOrder);
 }

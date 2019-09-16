@@ -55,10 +55,10 @@ class HouseServiceImpl implements HouseService
        return $this->houseRepository->getImages($house);
     }
 
-//    public function getNewHouse($userId)
-//    {
-//       return $this->houseRepository->getNewHouse($userId);
-//    }
+    public function getNewHouse($userId)
+    {
+       return $this->houseRepository->getNewHouse($userId);
+    }
 
     public function getHouseOfUser($userId)
     {
@@ -120,5 +120,11 @@ class HouseServiceImpl implements HouseService
     {
         $house = $this->findById($houseId);
         return $this->getOrders($house);
+    }
+
+    public function getUser($houseId)
+    {
+        $house = $this->findById($houseId);
+        return $this->houseRepository->getUser($house);
     }
 }

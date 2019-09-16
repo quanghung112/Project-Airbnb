@@ -37,10 +37,20 @@ class OrderController extends Controller
     public function updateOrder(Request $request, $idOrder)
     {
         try {
-          $message =  $this->orderService->update($request->all(), $idOrder);
-        return response()->json($message);
-    } catch (\Exception $exception) {
-        return $exception;
+            $message = $this->orderService->update($request->all(), $idOrder);
+            return response()->json($message);
+        } catch (\Exception $exception) {
+            return $exception;
+        }
     }
+
+    public function getUser($idOrder)
+    {
+        try {
+            $user = $this->orderService->getUser($idOrder);
+            return response()->json($user);
+        } catch (\Exception $exception) {
+            return $exception;
+        }
     }
 }

@@ -26,4 +26,9 @@ class OrderRepositoryImpl extends EloquentRepository implements OrderRepositoryI
     {
         return $this->model->where('user_id', $userid)->get();
     }
+
+    public function getUser($order)
+    {
+        return $order->user;
+    }
 }

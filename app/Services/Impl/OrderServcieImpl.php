@@ -122,7 +122,8 @@ class OrderServcieImpl implements OrderService
             if ($orderUser->status === '2') {
                 if ($data['status'] === '2') {
                     $message = "Đã chấp nhận người thuê không thể chấp nhận cho người khác";
-                    return $message;
+                    $status = false;
+                    return [$message, $status];
                 }
             }
         }
@@ -137,25 +138,35 @@ class OrderServcieImpl implements OrderService
             if ($data['userId']) {
                 if ($order->status === '2') {
                     $message = "Bạn không thể  huỷ thuê nhà trong vòng 1 ngày trước thời gian thuê ";
-                    return $message;
+                    $status = false;
+                    return [$message, $status];
                 }
             } else {
                 $this->orderRepository->update($data, $order);
                 $message = "Thành công";
-                return $message;
+                $status = true;
+                return [$message, $status];
             }
         }
         if ($check < 0) {
             $message = "Không thể thay đổi trạng thái thuê nhà do đã quá ngày nhận phòng";
-            return $message;
+            $status = false;
+            return [$message, $status];
         }
         $this->orderRepository->update($data, $order);
         $message = "Thành công";
-        return $message;
+        $status = true;
+        return [$message, $status];
     }
 
     public function findById($idOrder)
     {
         return $this->orderRepository->findById($idOrder);
+    }
+
+    public function getUser($idOrder)
+    {
+        $order = $this->findById($idOrder);
+        return $this->orderRepository->getUser($order);
     }
 }

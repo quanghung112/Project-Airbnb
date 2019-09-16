@@ -9,4 +9,6 @@ interface OrderRepositoryInterface extends RepositoryInterface
     public function getUserOrderHouse($houseid);
 
     public function getHouseOrderOfUser($userid);
+
+    public function getUser($order);
 }

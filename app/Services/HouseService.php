@@ -16,7 +16,7 @@ interface HouseService
 
     public function delete($id);
 
-//    public function getNewHouse($userId);
+    public function getNewHouse($userId);
 
     public function getHouseOfUser($userId);
 
@@ -33,6 +33,8 @@ interface HouseService
     public function getImages($houseId);
 
     public function getOrders($houseId);
+
+    public function getUser($houseId);
 
 }
 

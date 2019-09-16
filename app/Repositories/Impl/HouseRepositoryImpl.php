@@ -18,10 +18,10 @@ class HouseRepositoryImpl extends EloquentRepository implements HouseRepositoryI
     }
 
 
-//    public function getNewHouse($userId)
-//    {
-//        return $this->model->where('user_id', $userId)->orderby('id', 'desc')->take(1)->get();
-//    }
+    public function getNewHouse($userId)
+    {
+        return $this->model->where('user_id', $userId)->orderby('id', 'desc')->take(1)->get();
+    }
 
     public function getHouseOfUser($userId)
     {
@@ -94,10 +94,10 @@ class HouseRepositoryImpl extends EloquentRepository implements HouseRepositoryI
         return $obj->comments;
     }
 
-//    public function getUsersComment($house)
-//    {
-////        $comments = $this->getCommentOfHouse($house);
-//    }
+    public function getUsersComment($house)
+    {
+        $comments = $this->getCommentOfHouse($house);
+    }
 
     public function getImages($house)
     {
@@ -111,13 +111,18 @@ class HouseRepositoryImpl extends EloquentRepository implements HouseRepositoryI
 
     public function delete($obj)
     {
-        $this->model=$obj;
-        foreach ($this->getCommentOfHouse($obj) as $comment){
+        $this->model = $obj;
+        foreach ($this->getCommentOfHouse($obj) as $comment) {
             $comment->delete();
         }
-        foreach ($this->getOrders($obj) as $order){
+        foreach ($this->getOrders($obj) as $order) {
             $order->delete();
         }
         $this->model->delete();
+    }
+
+    public function getUser($hosue)
+    {
+        return $hosue->user;
     }
 }
