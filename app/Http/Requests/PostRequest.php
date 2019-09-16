@@ -8,7 +8,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 
-class UpdateUserRequest extends FormRequest
+class PostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,11 +28,12 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'avatar' => 'nullable',
-            'address' => 'required',
-//            'gender' => 'required',
-            'phone' => 'required|regex:/^([0-9]{10})+$/u'
+            'title' => 'required|min:6',
+            'start_loan' => 'required|date|after:now',
+            'end_loan' => 'required|date|after:start_loan',
+            'price' => 'required|integer|min:0',
+            'bathroom' => 'nullable|integer|min:0',
+            'bedroom' => 'nullable|integer|min:0',
         ];
     }
 
@@ -45,5 +46,4 @@ class UpdateUserRequest extends FormRequest
                 'status_code' => 422,
             ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY));
     }
-
 }

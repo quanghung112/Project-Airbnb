@@ -37,15 +37,19 @@ class UserServiceImpl implements UserService
 
     public function update($request)
     {
-        $oldpost = $this->getUser();
-        $checkexist = public_path('/avatar/'.$oldpost->avatar);
-        if ($checkexist) {
-            File::delete($checkexist);
+        $oldUser = $this->getUser();
+        if (isset($request['avatar'])){
+            $checkexist = public_path('/avatar/' . $oldUser->avatar);
+            if ($checkexist) {
+                File::delete($checkexist);
+            }
+            $fileName = $oldUser->id . "-" . Carbon::now()->toDateString() . "-" . Carbon::now()->hour . "-" . Carbon::now()->minute . "-" . Carbon::now()->second . "." . $request['avatar']->getClientOriginalExtension();
+            $path = $request['avatar']->move(public_path('/avatar'), $fileName);
+            $request['avatar'] = $fileName;
+        }else{
+            $request['avatar'] = $oldUser->avatar;
         }
-        $fileName = $oldpost->id . "-" . Carbon::now()->toDateString() . "-" . Carbon::now()->hour . "-" . Carbon::now()->minute . "-" . Carbon::now()->second . "." . $request['avatar']->getClientOriginalExtension();
-        $path = $request['avatar']->move(public_path('/avatar'), $fileName);
-        $request['avatar'] = $fileName;
-        $this->userRepositoryInterface->update($request, $oldpost);
+        $this->userRepositoryInterface->update($request, $oldUser);
     }
 
     public function getUser()
