@@ -6,5 +6,5 @@ namespace App\Repositories;
 
 interface CommentRepositoryInterface extends RepositoryInterface
 {
-//    public function getUserComment($houseId);
+    public function getUserComment($houseId);
 }

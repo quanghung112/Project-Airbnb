@@ -40,21 +40,20 @@ class HouseRepositoryImpl extends EloquentRepository implements HouseRepositoryI
         if ($start_loan == "") {
             $start_loan = Carbon::now()->format('Y-m-d');
         };
-
-//        if ($price == 0) {
-        $start_loan = $request->start_loan;
-        if ($start_loan == "") {
-            $start_loan = Carbon::now()->format('Y-m-d');
-        };
         $end_loan = $request->end_loan;
         if ($end_loan == "") {
             $end_loan = "2999-01-01";
         };
         $from = date($start_loan);
         $to = date($end_loan);
+
         if ($price == 0) {
             $inprice = 0;
             $outprice = 999999999999;
+        }
+        if ($price == 1) {
+            $inprice = 0;
+            $outprice = 999999;
         }
         if ($price == 1000000) {
             $inprice = 1000000;

@@ -17,4 +17,7 @@ interface OrderService
     public function findById($idOrder);
 
     public function getUser($idOrder);
+
+    public function searchtime($data);
+
 }

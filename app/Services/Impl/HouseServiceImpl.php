@@ -75,6 +75,7 @@ class HouseServiceImpl implements HouseService
         $revenue = $start * $house->price;
         $data = ["revenue" => $revenue];
         $this->houseRepository->update($data, $house);
+
     }
     public function updateCancelRevenue($idhouse){
         $house = $this->findById($idhouse);
@@ -127,4 +128,5 @@ class HouseServiceImpl implements HouseService
         $house = $this->findById($houseId);
         return $this->houseRepository->getUser($house);
     }
+
 }

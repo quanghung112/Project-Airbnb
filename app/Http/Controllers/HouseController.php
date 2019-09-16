@@ -183,4 +183,13 @@ class HouseController extends Controller
             return $exception;
         }
     }
+
+    public function changeStatus(Request $request, $houseId){
+        try {
+            $message = $this->houseService->update($request->all(), $houseId);
+            return response()->json($message);
+        } catch (\Exception $exception) {
+            return $exception;
+        }
+    }
 }

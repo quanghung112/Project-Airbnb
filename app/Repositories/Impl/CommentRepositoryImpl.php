@@ -17,8 +17,8 @@ class CommentRepositoryImpl extends EloquentRepository implements CommentReposit
         return $model;
     }
 
-//    public function getUserComment($comment)
-//    {
-//        return $comment->user;
-//    }
+    public function getUserComment($comment)
+    {
+        return $comment->user;
+    }
 }

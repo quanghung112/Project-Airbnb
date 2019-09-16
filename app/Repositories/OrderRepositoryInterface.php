@@ -11,4 +11,6 @@ interface OrderRepositoryInterface extends RepositoryInterface
     public function getHouseOrderOfUser($userid);
 
     public function getUser($order);
+
+    public function searchtime($data);
 }

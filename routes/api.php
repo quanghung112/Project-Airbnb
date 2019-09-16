@@ -16,6 +16,7 @@ Route::post('/loginFacebook','AuthController@loginWithFacebook');
 Route::post('/login', 'AuthController@login');
 Route::post('/signup', 'UserController@create');
 Route::group(['middleware' => 'jwt.verify'], function () {
+    Route::post('/searchtime','OrderController@searchTime');
     Route::post('/logout', 'AuthController@logout');
     Route::post('/changePassword', 'AuthController@changePassword')->name('User.changePassword');
     Route::get('/users/{id}', 'UserController@findById')->name('User.findById');
@@ -28,6 +29,7 @@ Route::group(['middleware' => 'jwt.verify'], function () {
         Route::post('/saveImage', 'HouseController@saveImage');
         Route::delete('/deleteImage/{imageId}', 'HouseController@deleteImage');
         Route::post('/updatePost/{houseId}', 'HouseController@updatePost');
+        Route::post('/updateStatus/{houseId}', 'HouseController@changeStatus');
         Route::delete('/deletePost/{houseId}', 'HouseController@deletePost');
         Route::get('/revenue/{houseId}', 'HouseController@updateRevenue');
         Route::get('/revenue-cancel/{houseId}', 'HouseController@updateCancelRevenue');

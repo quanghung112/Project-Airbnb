@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     protected $fillable = [
-        'user_id','house_id','status','check_in','check_out'
+        'user_id','house_id','status','check_in','check_out','revenue','userofhome'
     ];
     public function user(){
         return $this->belongsTo('App\User');

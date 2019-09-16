@@ -142,6 +142,7 @@ class OrderServcieImpl implements OrderService
                     return [$message, $status];
                 }
             } else {
+                $data['revenue'] = $this->updateRevenue($order);
                 $this->orderRepository->update($data, $order);
                 $message = "Thành công";
                 $status = true;
@@ -153,6 +154,8 @@ class OrderServcieImpl implements OrderService
             $status = false;
             return [$message, $status];
         }
+
+        $data['revenue'] = $this->updateRevenue($order);
         $this->orderRepository->update($data, $order);
         $message = "Thành công";
         $status = true;
@@ -164,9 +167,35 @@ class OrderServcieImpl implements OrderService
         return $this->orderRepository->findById($idOrder);
     }
 
+
     public function getUser($idOrder)
     {
         $order = $this->findById($idOrder);
         return $this->orderRepository->getUser($order);
+    }
+    public function updateRevenue($order){
+        $startLoan = Carbon::create($order->check_in);
+        $endLoan = Carbon::create($order->check_out);
+        $day = $startLoan->diffInDays($endLoan);
+        $price = $order->house->price;
+        $revenue = $day * $price;
+        return $revenue;
+    }
+
+    public function searchtime($data){
+        $orders = $this->orderRepository->searchtime($data);
+        $housesOrder = [];
+        if ($orders) {
+            foreach ($orders as $order) {
+                $house = $order->house;
+                $houseName = $house->title;
+                $check_in = $order->check_in;
+                $check_out = $order->check_out;
+                $revenue = $order->revenue;
+                $datapush = ['houseName' => $houseName, 'check_in' =>$check_in, 'check_out' =>$check_out, 'revenue'=>$revenue];
+                array_push($housesOrder,$datapush);
+            }
+        }
+        return $housesOrder;
     }
 }

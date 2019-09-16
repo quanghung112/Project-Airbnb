@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\HouseService;
 use App\Services\OrderService;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
     protected $orderService;
+    protected $houseService;
 
     public function __construct(OrderService $orderService)
     {
@@ -49,6 +51,16 @@ class OrderController extends Controller
         try {
             $user = $this->orderService->getUser($idOrder);
             return response()->json($user);
+        } catch (\Exception $exception) {
+            return $exception;
+        }
+    }
+
+    public function searchTime(Request $request)
+    {
+        try {
+            $orders = $this->orderService->searchtime($request);
+            return response()->json($orders);
         } catch (\Exception $exception) {
             return $exception;
         }
