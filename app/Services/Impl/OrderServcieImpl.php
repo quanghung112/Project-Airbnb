@@ -25,23 +25,39 @@ class OrderServcieImpl implements OrderService
 
     public function create($data)
     {
-        $data['status'] = "1";
+//        $data['status'] = '1';
         $allOrder = $this->orderRepository->getAll();
-        foreach ($allOrder as $order) {
-            if ($order->user_id == $data['user_id'] && $order->house_id == $data['house_id']) {
-                if ($order->status != '0') {
+        if (count($allOrder) != 0) {
+            foreach ($allOrder as $order) {
+                if ($order->user_id == $data['user_id'] && $order->house_id == $data['house_id']) {
+                    $now = Carbon::now();
+                    $checkDay = Carbon::create(2000, 1, 1, 00, 00, 00);
+                    $endLoan = Carbon::parse($order->check_out);
+                    $checkNow = $now->diffInHours($checkDay);
+                    $checkEndLoan = $endLoan->diffInHours($checkDay);
+                    $check = $checkEndLoan - $checkNow;
+                    if ($check > 0) {
+                        if ($order->status === '2' || $order->status === '1') {
+                            $message = "Đã đặt phòng thành công không thể đặt lại";
+                            $status = false;
+                            $result = [$message, $status];
+                            return $result;
+                        }
+                    }
+                } else {
                     $this->orderRepository->create($data);
                     $message = "Đặt nhà thành công";
                     $status = true;
-                    $result = [$message,$status];
-                    return $result;
-                } else {
-                    $message = "Đã đặt phòng thành công không thể đặt lại";
-                    $status = false;
-                    $result = [$message,$status];
+                    $result = [$message, $status];
                     return $result;
                 }
             }
+        } else {
+            $this->orderRepository->create($data);
+            $message = "Đặt nhà thành công";
+            $status = true;
+            $result = [$message, $status];
+            return $result;
         }
     }
 
@@ -113,7 +129,7 @@ class OrderServcieImpl implements OrderService
         $houseOrder = $order->house;
         $now = Carbon::now();
         $checkDay = Carbon::create(2000, 1, 1, 00, 00, 00);
-        $startLoan = Carbon::parse($houseOrder->start_loan);
+        $startLoan = Carbon::parse($order->check_in);
         $checkNow = $now->diffInHours($checkDay);
         $checkStartLoan = $startLoan->diffInHours($checkDay);
         $check = $checkStartLoan - $checkNow;
@@ -124,6 +140,7 @@ class OrderServcieImpl implements OrderService
                     return $message;
                 }
             } else {
+                $data['revenue'] = $this->updateRevenue($order);
                 $this->orderRepository->update($data, $order);
                 $message = "Thành công";
                 return $message;
@@ -133,6 +150,8 @@ class OrderServcieImpl implements OrderService
             $message = "Không thể thay đổi trạng thái thuê nhà do đã quá ngày nhận phòng";
             return $message;
         }
+
+        $data['revenue'] = $this->updateRevenue($order);
         $this->orderRepository->update($data, $order);
         $message = "Thành công";
         return $message;
@@ -141,5 +160,31 @@ class OrderServcieImpl implements OrderService
     public function findById($idOrder)
     {
         return $this->orderRepository->findById($idOrder);
+    }
+
+    public function updateRevenue($order){
+        $startLoan = Carbon::create($order->check_in);
+        $endLoan = Carbon::create($order->check_out);
+        $day = $startLoan->diffInDays($endLoan);
+        $price = $order->house->price;
+        $revenue = $day * $price;
+        return $revenue;
+    }
+
+    public function searchtime($data){
+        $orders = $this->orderRepository->searchtime($data);
+        $housesOrder = [];
+        if ($orders) {
+            foreach ($orders as $order) {
+                $house = $order->house;
+                $houseName = $house->title;
+                $check_in = $order->check_in;
+                $check_out = $order->check_out;
+                $revenue = $order->revenue;
+                $datapush = ['houseName' => $houseName, 'check_in' =>$check_in, 'check_out' =>$check_out, 'revenue'=>$revenue];
+                array_push($housesOrder,$datapush);
+            }
+        }
+        return $housesOrder;
     }
 }

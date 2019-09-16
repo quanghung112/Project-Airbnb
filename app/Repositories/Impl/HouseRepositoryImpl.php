@@ -37,12 +37,9 @@ class HouseRepositoryImpl extends EloquentRepository implements HouseRepositoryI
         $bedroom = $request->bedroom;
         $bathroom = $request->bathroom;
         $start_loan = $request->start_loan;
-
         if ($start_loan == "") {
             $start_loan = Carbon::now()->format('Y-m-d');
         };
-
-
         $end_loan = $request->end_loan;
         if ($end_loan == "") {
             $end_loan = "2999-01-01";
@@ -50,11 +47,11 @@ class HouseRepositoryImpl extends EloquentRepository implements HouseRepositoryI
         $from = date($start_loan);
         $to = date($end_loan);
 
-        if ($price == "") {
+        if ($price == 0) {
             $inprice = 0;
             $outprice = 999999999999;
         }
-        if ($price == 0) {
+        if ($price == 1) {
             $inprice = 0;
             $outprice = 999999;
         }
@@ -89,5 +86,37 @@ class HouseRepositoryImpl extends EloquentRepository implements HouseRepositoryI
             ->orderby('id', 'desc')->get();
 
         return $houses;
+    }
+
+    public function getCommentOfHouse($obj)
+    {
+        return $obj->comments;
+    }
+
+//    public function getUsersComment($house)
+//    {
+////        $comments = $this->getCommentOfHouse($house);
+//    }
+
+    public function getImages($house)
+    {
+        return $house->images;
+    }
+
+    public function getOrders($house)
+    {
+        return $house->orders;
+    }
+
+    public function delete($obj)
+    {
+        $this->model=$obj;
+        foreach ($this->getCommentOfHouse($obj) as $comment){
+            $comment->delete();
+        }
+        foreach ($this->getOrders($obj) as $order){
+            $order->delete();
+        }
+        $this->model->delete();
     }
 }
